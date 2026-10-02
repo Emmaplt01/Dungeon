@@ -1,0 +1,14 @@
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\bin\Debug\net10.0\Dungeon.exe
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\bin\Debug\net10.0\Dungeon.deps.json
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\bin\Debug\net10.0\Dungeon.runtimeconfig.json
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\bin\Debug\net10.0\Dungeon.dll
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\bin\Debug\net10.0\Dungeon.pdb
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\Dungeon.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\Dungeon.AssemblyInfoInputs.cache
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\Dungeon.AssemblyInfo.cs
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\Dungeon.csproj.CoreCompileInputs.cache
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\Dungeon.dll
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\refint\Dungeon.dll
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\Dungeon.pdb
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\Dungeon.genruntimeconfig.cache
+C:\Users\emmap\Documents\ecole-89\B2\C#\Dungeon\obj\Debug\net10.0\ref\Dungeon.dll
