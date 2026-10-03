@@ -3,7 +3,7 @@ class Troll : Monster
     int Strength;
     Weapon Weapon;
     string name;
-    public Troll(string Iname, int IlifePoints, string IeffectiveWeaponType, int strength) : base(Iname, IlifePoints, IeffectiveWeaponType, strength)
+    public Troll(string Iname, int IlifePoints, string IeffectiveWeaponType, int strength, string IweaponClassName) : base(Iname, IlifePoints, IeffectiveWeaponType, strength, IweaponClassName)
     {
         name = Iname;
         Strength = strength;

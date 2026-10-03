@@ -5,7 +5,14 @@ public class Hero : Character
     private int Strength;
     private HeroWeapons m_heroWeapons;
 
-    private List<HeroWeapons> LHeroWeapons = new List<HeroWeapons>();
+    private List<HeroWeapons> LHeroWeapons = new List<HeroWeapons>()
+    {
+        new Arrow(),
+        new WaterFlask(),
+        new Sword(),
+        new Spear(),
+        new FireArrow(),
+    };
 
     public string Name;
     public Hero(string name, int lifePoints, int strength) : base(lifePoints)   // Appelle le constructeur de Character
@@ -13,7 +20,7 @@ public class Hero : Character
         Name = name;
         LifePoints = lifePoints;
         Strength = strength;
-        LHeroWeapons.Add(new Arrow());
+
     }
 
     public void SelectWeaponFromArsenal(string weaponClassName) //gestion des erreurs 

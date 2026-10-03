@@ -3,7 +3,7 @@ class MonsterWeapon : Weapon
     public List<MonsterWeapon> LHeroWeapons = new List<MonsterWeapon>();
     public string Name;
     public int AttackPoints;
-    public MonsterWeapon(string name, int IAttackPoint) : base(10)
+    public MonsterWeapon(string name, int IAttackPoint) : base(IAttackPoint)
     {
         Name = name;
         AttackPoints = IAttackPoint;
@@ -11,6 +11,6 @@ class MonsterWeapon : Weapon
 
     public void inflictDamage(Character targetCharacter)
     {
-        targetCharacter.receiveDamages(10);
+        targetCharacter.receiveDamages(AttackPoints);
     }
 }

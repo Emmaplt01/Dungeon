@@ -2,7 +2,7 @@ class HeroWeapons : Weapon
 {
     public HeroWeapons(int attackPoint) : base(attackPoint) { }
 
-    public override void inflictDamage(Character target)
+    public override void inflictDamage(Character target) //passe par là
     {
         int bonus = getBonus();
         target.receiveDamages(AttackPoint * bonus);

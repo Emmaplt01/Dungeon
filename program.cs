@@ -5,7 +5,7 @@ class Program
     {
         string name;
         string action_choose;
-        int index = 0;
+        int index = 1;
 
 
         Console.WriteLine("Quel est votre nom jeune aventurier ?");
@@ -18,9 +18,9 @@ class Program
             Room r = new Room(index);
             r.enterRoom(h);
             Monster m = r.getMonster();
-            while (m.LifePoints >= 0)
+            while (m.LifePoints > 0)
             {
-                m.attack(h, 10);
+                m.attack(h);
                 if (h.LifePoints <= 0)
                 {
                     Console.WriteLine("Vous êtes malheureusement mort ... #RIP");

@@ -7,7 +7,7 @@ class Weapon
         AttackPoint = attackPoint;
     }
 
-    public virtual void inflictDamage(Character target)
+    public virtual void inflictDamage(Character target) //passe par heroweapons.cs
     {
         Console.WriteLine("passez par inflict Damage weapon");
         target.receiveDamages(AttackPoint);

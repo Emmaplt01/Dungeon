@@ -12,8 +12,8 @@ class Room
     public Room(int index)
     {
         Index = index;
-        monsters.Add(new Troll("Troll", 20, "arrow", 5));
-        monsters.Add(new Thief("Thief", 30, "arrow", 10));
+        monsters.Add(new Troll("Troll", 20, "arrow", 5, "Dagger"));
+        monsters.Add(new Thief("Thief", 30, "arrow", 10, "Dagger"));
 
     }
 

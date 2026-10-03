@@ -14,13 +14,32 @@ class Monster : Character
     public string effectiveWeaponType;
     public int strength;
     string name;
+    private List<MonsterWeapon> LMonsterWeapons = new List<MonsterWeapon>()
+    {
+        new Dagger(),
+        new Bite(),
+        new Axe(),
+        new Lightning(),
+        new Club(),
+    };
+    private MonsterWeapon m_MonsterWeapon;
 
-    public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, int Istrength) : base(IlifePoints)   // Appelle le constructeur de Character
+    public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, int Istrength, string weaponClassName) : base(IlifePoints)   // Appelle le constructeur de Character
     {
         effectiveWeaponType = IeffectiveWeaponType;
         strength = Istrength;
         name = Iname;
         lifepoints = IlifePoints;
+
+        foreach (var weapon in LMonsterWeapons)
+        {
+            if (weapon.GetType().Name == weaponClassName) //Les noms des armes c'est des type plus que des strings
+            {
+                m_MonsterWeapon = weapon;
+                Console.WriteLine($"Le monstre à équiper : {weaponClassName}");
+                return;
+            }
+        }
     }
 
     public string getEffectiveWeaponType()
@@ -28,8 +47,9 @@ class Monster : Character
         return effectiveWeaponType;
     }
 
-    public void attack(Character TargetCharacter, int Damages)
+    public void attack(Character TargetCharacter)
     {
+        int Damages = m_MonsterWeapon.AttackPoint;
         Console.WriteLine($"Vous vous faites attaqué par un {name} vous perdez {Damages} points");
         Console.WriteLine($"Il vous reste {TargetCharacter.LifePoints - Damages} points");
         TargetCharacter.receiveDamages(Damages); //a changer
