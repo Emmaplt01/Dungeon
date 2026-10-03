@@ -1,12 +1,10 @@
 class Thief : Monster
 {
-    int Strength;
     Weapon Weapon;
     string name;
-    public Thief(string Iname, int IlifePoints, string IeffectiveWeaponType, int strength, string IweaponClassName) : base(Iname, IlifePoints, IeffectiveWeaponType, strength, IweaponClassName)
+    public Thief(string Iname, int IlifePoints, string IeffectiveWeaponType, string IweaponClassName) : base(Iname, IlifePoints, IeffectiveWeaponType, IweaponClassName)
     {
         name = Iname;
-        Strength = strength;
         //Weapon = weapon; A implémenter après
     }
 

@@ -12,7 +12,6 @@ class Monster : Character
 
     public int lifepoints;
     public string effectiveWeaponType;
-    public int strength;
     string name;
     private List<MonsterWeapon> LMonsterWeapons = new List<MonsterWeapon>()
     {
@@ -24,10 +23,9 @@ class Monster : Character
     };
     private MonsterWeapon m_MonsterWeapon;
 
-    public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, int Istrength, string weaponClassName) : base(IlifePoints)   // Appelle le constructeur de Character
+    public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, string weaponClassName) : base(IlifePoints)   // Appelle le constructeur de Character
     {
         effectiveWeaponType = IeffectiveWeaponType;
-        strength = Istrength;
         name = Iname;
         lifepoints = IlifePoints;
 
@@ -36,7 +34,6 @@ class Monster : Character
             if (weapon.GetType().Name == weaponClassName) //Les noms des armes c'est des type plus que des strings
             {
                 m_MonsterWeapon = weapon;
-                Console.WriteLine($"Le monstre à équiper : {weaponClassName}");
                 return;
             }
         }
