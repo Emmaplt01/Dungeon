@@ -7,6 +7,10 @@ public class Item
         m_iEffectValue = value;
     }
 
+    public virtual void applyEffect(Hero hero)
+    {
+    }
+
     /*public abstract void ApplyEffect(Hero hero)
     {
         J'ai décidé de pas la faire car pas utile comme attack

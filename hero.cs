@@ -1,9 +1,12 @@
 using System.Reflection.PortableExecutable;
+using System.Runtime.CompilerServices;
+using System.Threading.Tasks.Dataflow;
 
 public class Hero : Character
 {
     private int Strength;
     private HeroWeapons m_heroWeapons;
+    private int index = 0;
 
     private List<HeroWeapons> LHeroWeapons = new List<HeroWeapons>()
     {
@@ -15,6 +18,8 @@ public class Hero : Character
     };
 
     public string Name;
+
+    public List<Item> Inventory = new List<Item>();
     public Hero(string name, int lifePoints, int strength) : base(lifePoints)   // Appelle le constructeur de Character
     {
         Name = name;
@@ -25,17 +30,25 @@ public class Hero : Character
 
     public void SelectWeaponFromArsenal(string weaponClassName) //gestion des erreurs 
     {
-        foreach (var weapon in LHeroWeapons)
+        while (true)
         {
-            if (weapon.GetType().Name == weaponClassName) //Les noms des armes c'est des type plus que des strings
+            foreach (var weapon in LHeroWeapons)
             {
-                m_heroWeapons = weapon;
-                Console.WriteLine($"Vous avez équipé : {weaponClassName}");
-                return;
+                if (weapon.GetType().Name == weaponClassName) //Les noms des armes c'est des type plus que des strings
+                {
+                    m_heroWeapons = weapon;
+                    Console.WriteLine($"Vous avez équipé : {weaponClassName}");
+                    return;
+                }
             }
+            Console.WriteLine("Vous ne possédez pas cette armes. Voici les armes à votre disposition");
+            foreach (Weapon weapon in LHeroWeapons)
+            {
+                Console.WriteLine(weapon);
+            }
+            Console.WriteLine("Veuillez sélectionner une amre valdie");
+            weaponClassName = Console.ReadLine();
         }
-
-        Console.WriteLine("Cette arme n'existe pas dans votre arsenal.");
     }
 
 
@@ -56,26 +69,46 @@ public class Hero : Character
 
     public void improveHealth(int Value)
     {
-
+        Console.WriteLine($"Vous avez gagner + {Value} points de vie");
         LifePoints += Value;
+        Console.WriteLine($"Vous avez maintenant {LifePoints} points de vie");
     }
 
-    public void improveStrength(int Value) //en mode potion tu à fait *2 ajout à l'existant
+    public void improveStrength(int Value)
     {
+        Console.WriteLine($"Vous avez gagner en force +{Value} ");
         Strength += Value;
     }
 
     public void searchForPotion(Searchable Searchable)
     {
-        Item found = Searchable.search(); //appel la futur fonction pour faire un random pour savoir si il a trouver une potion
-        if (found == null)
+        Searchable.search(this); //appel la futur fonction pour faire un random pour savoir si il a trouver une potion
+        //Est-ce que il faudrait pas le rentrer quelque part le fait qu'on à trouver une potion
+    }
+
+    public void showInventory()
+    {
+        if (Inventory.Count == 0)
         {
-            Console.WriteLine("Vous n'avez pas trouver de potion");
+            Console.WriteLine("L'Inventaire est vide.");
             return;
         }
 
-        Console.WriteLine($"Vous avez trouvez une potion de {found}"); //préciser quel type de potion
-        //Est-ce que il faudrait pas le rentrer quelque part le fait qu'on à trouver une potion
+        foreach (Item item in Inventory)
+        {
+            Console.WriteLine($"[{index}] {item}");
+            index++;
+        }
+        Console.WriteLine("Voulez vous utiliser un potion ?");
+        string respons = Console.ReadLine();
+        if (respons == "oui" || respons == "Oui")
+        {
+            Console.WriteLine($"Tapez le numéro de la potion de 1 à {index}");
+            int choose = Convert.ToInt32(Console.ReadLine());
+            Inventory[choose].applyEffect(this);
+            return;
+        }
+
     }
 
     /*public void tryPower(Dungeon Dungeon) pas encore faite

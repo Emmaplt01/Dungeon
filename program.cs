@@ -6,6 +6,7 @@ class Program
         string name;
         string action_choose;
         int index = 1;
+        bool fouiller = false;
 
 
         Console.WriteLine("Quel est votre nom jeune aventurier ?");
@@ -30,16 +31,22 @@ class Program
                 action_choose = Console.ReadLine();
                 switch (action_choose)
                 {
-                    /*case "Fouiller":
-                        h.fouiller(); //search
+                    case "Fouiller":
+                        if (fouiller == true)
+                        {
+                            Console.WriteLine("Vous avez déjà fouillé cette pièce");
+                            break;
+                        }
+                        fouiller = true;
+                        Searchable.search(h); //search
                         break;
 
                     case "Inventaire":
-                        h.inventaire();
-                        break;*/
+                        h.showInventory();
+                        break;
 
                     case "Attack":
-                        Console.WriteLine("Quelles armes voulez-vous utiliser ? Les flèches STP");
+                        Console.WriteLine("Quelles armes voulez-vous utiliser ?");
                         h.SelectWeaponFromArsenal(Console.ReadLine());
                         h.attack(m);
                         Console.WriteLine($"Vous avez attaqué le {m} il lui reste {m.LifePoints} points ");
@@ -53,6 +60,7 @@ class Program
                 //riposte qui peut être demeander bonus, attaque, voir
 
             }
+            fouiller = false;
             Console.WriteLine($"Super ! Vous avez teracé le {m} ! \nVous pouvez passer à la prochaine pièce ->");
             Console.ReadLine();
 
@@ -60,10 +68,7 @@ class Program
 
         }
 
-
-        //Arrow arrow = new Arrow();
-        //Console.WriteLine($"la flèche attaque de {arrow.getAttackPoints()}");
-
+        Console.WriteLine("Félicitation ! Vous avez vaincu tout les monstres du Dungeon vous pouvez maitnenant continuez votre chemin");
 
     }
 }

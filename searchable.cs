@@ -2,19 +2,24 @@ using System.Net.ServerSentEvents;
 
 public class Searchable
 {
-    public Item search()
+    public static void search(Hero hero)
     {
         Random rnd = new Random();
         int valeur = rnd.Next(0, 30);
 
         if (valeur <= 10)
         {
-            return new StrengthPotion(valeur);
+            hero.Inventory.Add(new StrengthPotion(valeur));
+            Console.WriteLine($"Vous avez trouver une potion de force");
+            return;
         }
         if (valeur <= 20)
         {
-            return new HealthPotion(valeur);
+            hero.Inventory.Add(new HealthPotion(valeur));
+            Console.WriteLine($"Vous avez trouver une potion de vie");
+            return;
         }
-        return null;
+        Console.WriteLine("Vous n'avez rien trouvé");
+        return;
     }
 }
