@@ -1,10 +1,11 @@
-class Barbarian : Monster
+class Zombie : Monster
 {
     Weapon Weapon;
     string name;
-    public Barbarian(string Iname, int IlifePoints, string IeffectiveWeaponType, string IweaponClassName) : base(Iname, IlifePoints, IeffectiveWeaponType, IweaponClassName)
+    public Zombie(string Iname, int IlifePoints, string IeffectiveWeaponType, string IweaponClassName) : base(Iname, IlifePoints, IeffectiveWeaponType, IweaponClassName)
     {
         name = Iname;
+        s_iNbZombieInstances++;
         //Weapon = weapon; A implémenter après
     }
 

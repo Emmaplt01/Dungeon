@@ -1,10 +1,13 @@
-class Sorcerer : Monster
+class Barbarian : Monster
 {
     Weapon Weapon;
     string name;
-    public Sorcerer(string Iname, int IlifePoints, string IeffectiveWeaponType, string IweaponClassName) : base(Iname, IlifePoints, IeffectiveWeaponType, IweaponClassName)
+
+    public Barbarian(string Iname, int IlifePoints, string IeffectiveWeaponType, string IweaponClassName) : base(Iname, IlifePoints, IeffectiveWeaponType, IweaponClassName)
     {
         name = Iname;
+        s_iNbBarbarianInstances++;
+
         //Weapon = weapon; A implémenter après
     }
 

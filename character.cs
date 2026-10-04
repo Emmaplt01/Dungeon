@@ -1,26 +1,26 @@
 public class Character
 {
-    public int LifePoints;   // ✔ public pour être visible partout
+    protected int m_iLifePoints;
     public string name;
 
     public Character(int pts)
     {
-        LifePoints = pts;
+        m_iLifePoints = pts;
     }
 
     public int getNbLifePoints()
     {
-        return LifePoints;
+        return m_iLifePoints;
     }
 
-    public void receiveDamages(int damages)
+    public void receiveDamages(int p_iDamages)
     {
-        LifePoints -= damages;
+        m_iLifePoints -= p_iDamages;
         getNbLifePoints();
     }
 
     public bool isalive()
     {
-        return LifePoints > 0;
+        return m_iLifePoints > 0;
     }
 }

@@ -1,8 +1,8 @@
 class Room
 {
-    int Index = 1;
     public int valeur;
     Monster monster;
+    private static int i = 1;
     List<Monster> monsters = new List<Monster>()
     {
         new Troll("Troll", 20, "Sword", "Axe"), //Nom, lifepoint, weaponefficient, weapon use
@@ -13,9 +13,8 @@ class Room
 
     };
 
-    public Room(int index)
+    public Room()
     {
-        Index = index;
 
     }
 
@@ -26,8 +25,10 @@ class Room
         return monsters[valeur];
     }
 
-    public void enterRoom(Hero Hero)
+    public void enterRoom(Hero p_Hero)
     {
-        Console.WriteLine($"Vous entrez dans la salle N° {Index}.");
+
+        Console.WriteLine($"Vous entrez dans la salle N° {i}."); //changer Index
+        i++;
     }
 }

@@ -1,18 +1,16 @@
 using System.Reflection.PortableExecutable;
 
-class Monster : Character
+public class Monster : Character
 {
-    public string EffectiveWeaponType;
-    public static int NbZombieInstances;
-    public int NbThiefInstances;
-    public int NbSorcerInstance;
-    public int NbBarbrianInstances;
-    public int NbTrollnstances;
-    private bool SearchDone;
+    public string m_sEffectiveWeaponType;
+    public static int s_iNbZombieInstances = 0;
+    public static int s_iNbThiefInstances = 0;
+    public static int s_iNbSorcererInstances = 0;
+    public static int s_iNbBarbarianInstances = 0;
+    public static int s_iNbTrollInstances = 0;
 
-    public int lifepoints;
     public string effectiveWeaponType;
-    string name;
+    public string name;
     private List<MonsterWeapon> LMonsterWeapons = new List<MonsterWeapon>()
     {
         new Dagger(),
@@ -27,7 +25,6 @@ class Monster : Character
     {
         effectiveWeaponType = IeffectiveWeaponType;
         name = Iname;
-        lifepoints = IlifePoints;
 
         foreach (var weapon in LMonsterWeapons)
         {
@@ -44,17 +41,19 @@ class Monster : Character
         return effectiveWeaponType;
     }
 
-    public void attack(Character TargetCharacter)
+    public void attack(Character p_TargetCharacter)
     {
-        int Damages = m_MonsterWeapon.AttackPoint;
-        Console.WriteLine($"Vous vous faites attaqué par un {name} vous perdez {Damages} points");
-        Console.WriteLine($"Il vous reste {TargetCharacter.LifePoints - Damages} points");
-        TargetCharacter.receiveDamages(Damages); //a changer
+        int Damages = m_MonsterWeapon.inflictDamage(p_TargetCharacter);
+        Console.WriteLine($"Vous vous faites attaqué par le {name} vous perdez {Damages} points");
+        Console.WriteLine($"Il vous reste {p_TargetCharacter.getNbLifePoints() - Damages} points");
+        p_TargetCharacter.receiveDamages(Damages);
+
     }
 
-    public bool isWeaponEfficient(MonsterWeapon monsterWeapon)
+
+    public bool isWeaponEfficient(MonsterWeapon p_Weapon)
     {
-        if (EffectiveWeaponType == monsterWeapon.Name)
+        if (m_sEffectiveWeaponType == p_Weapon.Name)
         {
             return true;
         }

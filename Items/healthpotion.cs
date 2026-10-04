@@ -6,8 +6,8 @@ class HealthPotion : Item
         m_value = value;
     }
 
-    public override void applyEffect(Hero hero)
+    public override void applyEffect(Hero p_hero)
     {
-        hero.improveHealth(m_value);
+        p_hero.improveHealth(m_value);
     }
 }

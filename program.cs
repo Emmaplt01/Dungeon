@@ -11,18 +11,19 @@ class Program
 
         Console.WriteLine("Quel est votre nom jeune aventurier ?");
         name = Console.ReadLine();
-        Hero h = new Hero(name, 200, 20);
+        Hero h = new Hero(name, 200);
         Dungeon d = new Dungeon();
         d.greetHeros(h);
         while (index <= 5)
         {
-            Room r = new Room(index);
+            Room r = new Room();
             r.enterRoom(h);
             Monster m = r.getMonster();
-            while (m.LifePoints > 0)
+            h.discoverEnnemy(m);
+            while (m.getNbLifePoints() > 0)
             {
                 m.attack(h);
-                if (h.LifePoints <= 0)
+                if (h.getNbLifePoints() <= 0)
                 {
                     Console.WriteLine("Vous êtes malheureusement mort ... #RIP");
                     return;
@@ -47,9 +48,9 @@ class Program
 
                     case "Attack":
                         Console.WriteLine("Quelles armes voulez-vous utiliser ?");
-                        h.SelectWeaponFromArsenal(Console.ReadLine());
+                        h.selectWeaponFromArsenal(Console.ReadLine());
                         h.attack(m);
-                        Console.WriteLine($"Vous avez attaqué le {m} il lui reste {m.LifePoints} points ");
+                        Console.WriteLine($"Vous avez attaqué le {m} il lui reste {m.getNbLifePoints()} points ");
                         break;
 
                     default:

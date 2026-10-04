@@ -4,9 +4,11 @@ using System.Threading.Tasks.Dataflow;
 
 public class Hero : Character
 {
-    private int Strength;
+    private int m_iStrength = 1;
     private HeroWeapons m_heroWeapons;
     private int index = 0;
+
+    private int LifePoints;
 
     private List<HeroWeapons> LHeroWeapons = new List<HeroWeapons>()
     {
@@ -20,24 +22,23 @@ public class Hero : Character
     public string Name;
 
     public List<Item> Inventory = new List<Item>();
-    public Hero(string name, int lifePoints, int strength) : base(lifePoints)   // Appelle le constructeur de Character
+    public Hero(string name, int lifePoints) : base(lifePoints)   // Appelle le constructeur de Character
     {
         Name = name;
         LifePoints = lifePoints;
-        Strength = strength;
 
     }
 
-    public void SelectWeaponFromArsenal(string weaponClassName) //gestion des erreurs 
+    public void selectWeaponFromArsenal(string p_sWeaponClassName) //gestion des erreurs 
     {
         while (true)
         {
             foreach (var weapon in LHeroWeapons)
             {
-                if (weapon.GetType().Name == weaponClassName) //Les noms des armes c'est des type plus que des strings
+                if (weapon.GetType().Name == p_sWeaponClassName) //Les noms des armes c'est des type plus que des strings
                 {
                     m_heroWeapons = weapon;
-                    Console.WriteLine($"Vous avez équipé : {weaponClassName}");
+                    Console.WriteLine($"Vous avez équipé : {p_sWeaponClassName}");
                     return;
                 }
             }
@@ -47,40 +48,42 @@ public class Hero : Character
                 Console.WriteLine(weapon);
             }
             Console.WriteLine("Veuillez sélectionner une amre valdie");
-            weaponClassName = Console.ReadLine();
+            p_sWeaponClassName = Console.ReadLine();
         }
     }
 
 
-    public void attack(Character TargetCharacter)
+    public void attack(Character p_TargetCharacter)
     {
-        m_heroWeapons.inflictDamage(TargetCharacter); //target == monster oui
+        int baseDamage = m_heroWeapons.inflictDamage(p_TargetCharacter);
+        int totalDamage = baseDamage * m_iStrength;
+        p_TargetCharacter.receiveDamages(totalDamage);
     }
 
-    /*public discoverEnnemy(Monster monster) A voir après elle est pas dans le document
-    {
-        Console.WriteLine($"Attention un {monster.name} est devant vous !");
-    }*/
 
-    public void setSrength(int newSrength) //juste pour reset le truc en mode maintenant c'est plus 10 c'est 35 remplace l'existant
+    public void discoverEnnemy(Monster p_Monster)
     {
-        Strength = newSrength;
+        Console.WriteLine($"Attention un {p_Monster.name} est devant vous !");
     }
 
-    public void improveHealth(int Value)
+    public int getStrength()
     {
-        Console.WriteLine($"Vous avez gagner + {Value} points de vie");
-        LifePoints += Value;
+        return m_iStrength;
+    }
+    public void improveHealth(int p_iValue)
+    {
+        Console.WriteLine($"Vous avez gagner + {p_iValue} points de vie");
+        LifePoints += p_iValue;
         Console.WriteLine($"Vous avez maintenant {LifePoints} points de vie");
     }
 
-    public void improveStrength(int Value)
+    public void improveStrength(int p_iValue)
     {
-        Console.WriteLine($"Vous avez gagner en force +{Value} ");
-        Strength += Value;
+        Console.WriteLine($"Vous avez gagner en force +{p_iValue} ");
+        m_iStrength += p_iValue;
     }
 
-    public void searchForPotion(Searchable Searchable)
+    public void searchForPotion(Searchable p_Searchable)
     {
         Searchable.search(this); //appel la futur fonction pour faire un random pour savoir si il a trouver une potion
         //Est-ce que il faudrait pas le rentrer quelque part le fait qu'on à trouver une potion
@@ -110,9 +113,4 @@ public class Hero : Character
         }
 
     }
-
-    /*public void tryPower(Dungeon Dungeon) pas encore faite
-    {
-        //a faire avec le dungeon
-    }*/
 }

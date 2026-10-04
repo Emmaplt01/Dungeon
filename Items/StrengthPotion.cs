@@ -6,8 +6,8 @@ class StrengthPotion : Item
         m_value = value;
     }
 
-    public override void applyEffect(Hero hero)
+    public override void applyEffect(Hero p_hero)
     {
-        hero.improveStrength(10);
+        p_hero.improveStrength(10);
     }
 }

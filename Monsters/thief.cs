@@ -5,7 +5,7 @@ class Thief : Monster
     public Thief(string Iname, int IlifePoints, string IeffectiveWeaponType, string IweaponClassName) : base(Iname, IlifePoints, IeffectiveWeaponType, IweaponClassName)
     {
         name = Iname;
-        //Weapon = weapon; A implémenter après
+        s_iNbThiefInstances++;
     }
 
     public void attack(Character TargetCharacter) //plus utilisé passe pas par là
