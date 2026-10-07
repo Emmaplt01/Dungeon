@@ -8,6 +8,12 @@ public class Character
         m_iLifePoints = pts;
     }
 
+    public virtual void attack(Character p_TargetCharacter)
+    {
+
+    }
+
+
     public int getNbLifePoints()
     {
         return m_iLifePoints;

@@ -1,5 +1,5 @@
 class Arrow : HeroWeapons
 {
-    public Arrow() : base(10) { }
+    public Arrow() : base("Arrow", 10) { }
 
 }

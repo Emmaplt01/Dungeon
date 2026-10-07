@@ -2,7 +2,10 @@ using System.ComponentModel.DataAnnotations;
 
 class HeroWeapons : Weapon
 {
-    public HeroWeapons(int attackPoint) : base(attackPoint) { }
+    public HeroWeapons(string name, int attackPoints)
+        : base(name, attackPoints)
+    {
+    }
 
     public override int inflictDamage(Character p_TargetCharacter)
     {

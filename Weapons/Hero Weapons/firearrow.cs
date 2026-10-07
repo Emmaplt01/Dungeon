@@ -1,5 +1,5 @@
 class FireArrow : HeroWeapons
 {
-    public FireArrow() : base(30) { }
+    public FireArrow() : base("FireArrow", 30) { }
 
 }

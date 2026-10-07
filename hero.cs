@@ -29,7 +29,12 @@ public class Hero : Character
 
     }
 
-    public void selectWeaponFromArsenal(string p_sWeaponClassName) //gestion des erreurs 
+    public Weapon chooseWeapon(string p_sWeaponClassName)
+    {
+        selectWeaponFromArsenal(p_sWeaponClassName);
+        return m_heroWeapons;
+    }
+    private void selectWeaponFromArsenal(string p_sWeaponClassName) //gestion des erreurs 
     {
         while (true)
         {
@@ -53,7 +58,7 @@ public class Hero : Character
     }
 
 
-    public void attack(Character p_TargetCharacter)
+    public override void attack(Character p_TargetCharacter)
     {
         int baseDamage = m_heroWeapons.inflictDamage(p_TargetCharacter);
         int totalDamage = baseDamage * m_iStrength;

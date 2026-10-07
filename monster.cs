@@ -9,8 +9,9 @@ public class Monster : Character
     public static int s_iNbBarbarianInstances = 0;
     public static int s_iNbTrollInstances = 0;
 
-    public string effectiveWeaponType;
     public string name;
+
+    private bool m_bSearchDone;
     private List<MonsterWeapon> LMonsterWeapons = new List<MonsterWeapon>()
     {
         new Dagger(),
@@ -23,7 +24,8 @@ public class Monster : Character
 
     public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, string weaponClassName) : base(IlifePoints)   // Appelle le constructeur de Character
     {
-        effectiveWeaponType = IeffectiveWeaponType;
+
+        m_sEffectiveWeaponType = IeffectiveWeaponType;
         name = Iname;
 
         foreach (var weapon in LMonsterWeapons)
@@ -38,10 +40,10 @@ public class Monster : Character
 
     public string getEffectiveWeaponType()
     {
-        return effectiveWeaponType;
+        return m_sEffectiveWeaponType;
     }
 
-    public void attack(Character p_TargetCharacter)
+    public override void attack(Character p_TargetCharacter)
     {
         int Damages = m_MonsterWeapon.inflictDamage(p_TargetCharacter);
         Console.WriteLine($"Vous vous faites attaqué par le {name} vous perdez {Damages} points");
@@ -50,13 +52,17 @@ public class Monster : Character
 
     }
 
-
-    public bool isWeaponEfficient(MonsterWeapon p_Weapon)
+    public bool isWeaponEfficient(Weapon p_Weapon)
     {
         if (m_sEffectiveWeaponType == p_Weapon.Name)
         {
             return true;
         }
         return false;
+    }
+
+    public bool isSearchDone()
+    {
+        return m_bSearchDone;
     }
 }

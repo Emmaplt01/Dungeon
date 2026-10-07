@@ -1,5 +1,5 @@
 class Sword : HeroWeapons
 {
-    public Sword() : base(20) { }
+    public Sword() : base("Sword", 20) { }
 
 }

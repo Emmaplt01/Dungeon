@@ -4,7 +4,7 @@ public class MonsterWeapon : Weapon
     private int MaxRoundBeforeCritical = 3;
     public string Name;
 
-    public MonsterWeapon(string name, int attackPoints) : base(attackPoints)
+    public MonsterWeapon(string name, int attackPoints) : base(name, attackPoints)
     {
         Name = name;
     }

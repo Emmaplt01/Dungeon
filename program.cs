@@ -7,6 +7,7 @@ class Program
         string action_choose;
         int index = 1;
         bool fouiller = false;
+        Weapon HeroWeapon;
 
 
         Console.WriteLine("Quel est votre nom jeune aventurier ?");
@@ -48,21 +49,48 @@ class Program
 
                     case "Attack":
                         Console.WriteLine("Quelles armes voulez-vous utiliser ?");
-                        h.selectWeaponFromArsenal(Console.ReadLine());
-                        h.attack(m);
-                        Console.WriteLine($"Vous avez attaqué le {m} il lui reste {m.getNbLifePoints()} points ");
-                        break;
+                        HeroWeapon = h.chooseWeapon(Console.ReadLine());
+                        if (m.isWeaponEfficient(HeroWeapon) == true)
+                        {
+                            h.attack(m);
+                            Console.WriteLine($"Vous avez attaqué le {m} il lui reste {m.getNbLifePoints()} points ");
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Cette arme est inutile face au {m}");
+                            break;
+                        }
 
                     default:
                         Console.WriteLine("Commande inconnue.");
                         break;
                 }
 
-                //riposte qui peut être demeander bonus, attaque, voir
-
             }
             fouiller = false;
-            Console.WriteLine($"Super ! Vous avez teracé le {m} ! \nVous pouvez passer à la prochaine pièce ->");
+            Console.WriteLine($"Super ! Vous avez teracé le {m} ! \nQue voulez vous faire: Fouiller ou Avancer");
+            action_choose = Console.ReadLine();
+            switch (action_choose)
+            {
+                case "Fouiller":
+                    if (m.isSearchDone() == true)
+                    {
+                        Console.WriteLine($"Vous avez déjà le {m.name}");
+                        break;
+                    }
+                    fouiller = true;
+                    Searchable.search(h); //search
+                    break;
+
+                case "Avancer":
+                    break;
+
+                default:
+                    Console.WriteLine("Commande inconnue.");
+                    break;
+
+            }
             Console.ReadLine();
 
             index++;

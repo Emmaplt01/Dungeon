@@ -1,5 +1,5 @@
 class WaterFlask : HeroWeapons
 {
-    public WaterFlask() : base(1) { }
+    public WaterFlask() : base("WaterFlask", 1) { }
 
 }
