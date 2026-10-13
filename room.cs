@@ -1,34 +1,40 @@
 class Room
 {
     public int valeur;
-    Monster monster;
     private static int i = 1;
-    List<Monster> monsters = new List<Monster>()
+
+
+    private Monster monster;
+    private Item item;
+
+    public Room(Monster Monster, Item Item)
     {
-        new Troll("Troll", 20, "Sword", "Axe"), //Nom, lifepoint, weaponefficient, weapon use
-        new Thief("Thief", 30, "Arrow", "Dagger"),
-        new Sorcerer("Sorcerer", 100, "WaterFlask", "Lightning"),
-        new Zombie("Zombie", 10, "FireArrow", "Bite"),
-        new Barbarian("Barbarian", 50, "Spear", "Club"),
-
-    };
-
-    public Room()
-    {
-
+        monster = Monster;
+        item = Item;
     }
+
 
     public Monster getMonster()
     {
-        Random rnd = new Random();
-        valeur = rnd.Next(0, 5); //max est exclus
-        return monsters[valeur];
+        return monster;
     }
 
-    public void enterRoom(Hero p_Hero)
+    public void enterRoom(Hero hero)
     {
-
-        Console.WriteLine($"Vous entrez dans la salle N° {i}."); //changer Index
+        Console.WriteLine($"Vous entrez dans la salle N° {i}.");
         i++;
+    }
+
+    public Item search()
+    {
+        if (item != null)
+        {
+            Console.WriteLine($"Félicitation vous avez trouvé une potion de {item}");
+        }
+        else
+        {
+            Console.WriteLine("Vous n'avez rien trouvé ici :(");
+        }
+        return item;
     }
 }

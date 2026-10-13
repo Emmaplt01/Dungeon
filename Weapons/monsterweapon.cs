@@ -1,7 +1,7 @@
 public class MonsterWeapon : Weapon
 {
-    private int CriticalCount = 0;
-    private int MaxRoundBeforeCritical = 3;
+    private int m_iCriticalCount = 0;
+    private static readonly int s_iMaxRoundBeforeCritical = 3;
     public string Name;
 
     public MonsterWeapon(string name, int attackPoints) : base(name, attackPoints)
@@ -9,19 +9,25 @@ public class MonsterWeapon : Weapon
         Name = name;
     }
 
-    public override int inflictDamage(Character p_TargetCharacter)
+    public override void inflictDamage(Character p_TargetCharacter)
     {
-        CriticalCount++;
+        m_iCriticalCount++;
 
         int baseDamage = m_iAttackPoints; // hérité de Weapon
 
-        if (CriticalCount >= MaxRoundBeforeCritical)
+        if (m_iCriticalCount >= s_iMaxRoundBeforeCritical)
         {
-            CriticalCount = 0;
+            m_iCriticalCount = 0;
             Console.WriteLine("Coup critique !");
-            return baseDamage * 2;
+            p_TargetCharacter.receiveDamages(baseDamage * 2);
+            return;
         }
-
-        return baseDamage;
+        else
+        {
+            p_TargetCharacter.receiveDamages(baseDamage);
+        }
+        Console.WriteLine($"Vous perdez {baseDamage} points");
+        Console.WriteLine($"Il vous reste {p_TargetCharacter.getNbLifePoints() - baseDamage} points");
+        return;
     }
 }

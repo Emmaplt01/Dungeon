@@ -9,9 +9,8 @@ public class Weapon
         m_iAttackPoints = attackPoint;
     }
 
-    public virtual int inflictDamage(Character p_TargetCharacter)
+    public virtual void inflictDamage(Character p_TargetCharacter)
     {
-        return m_iAttackPoints;
     }
 
     public int getAttackPoint()

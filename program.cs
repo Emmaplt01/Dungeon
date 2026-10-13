@@ -5,22 +5,23 @@ class Program
     {
         string name;
         string action_choose;
-        int index = 1;
+        int index = 0;
         bool fouiller = false;
         Weapon HeroWeapon;
+        bool running = true;
 
 
         Console.WriteLine("Quel est votre nom jeune aventurier ?");
         name = Console.ReadLine();
         Hero h = new Hero(name, 200);
-        Dungeon d = new Dungeon();
+        Dungeon d = new Dungeon(25);
         d.greetHeros(h);
         while (index <= 5)
         {
-            Room r = new Room();
+            Room r = d.getRoom(index);
             r.enterRoom(h);
             Monster m = r.getMonster();
-            h.discoverEnnemy(m);
+            Console.WriteLine($"Vous vous faites attaquer par un {m.name} !");
             while (m.getNbLifePoints() > 0)
             {
                 m.attack(h);
@@ -40,7 +41,11 @@ class Program
                             break;
                         }
                         fouiller = true;
-                        Searchable.search(h); //search
+                        Item result = r.search();
+                        if (result != null)
+                        {
+                            h.Inventory.Add(result);
+                        }
                         break;
 
                     case "Inventaire":
@@ -69,36 +74,38 @@ class Program
 
             }
             fouiller = false;
-            Console.WriteLine($"Super ! Vous avez teracé le {m} ! \nQue voulez vous faire: Fouiller ou Avancer");
-            action_choose = Console.ReadLine();
-            switch (action_choose)
+            Console.WriteLine($"Super ! Vous avez teracé le {m} !");
+            while (running)
             {
-                case "Fouiller":
-                    if (m.isSearchDone() == true)
-                    {
-                        Console.WriteLine($"Vous avez déjà le {m.name}");
+                Console.WriteLine("Que voulez vous faire: Fouiller ou Avancer ?");
+                action_choose = Console.ReadLine();
+
+                switch (action_choose)
+                {
+                    case "Fouiller":
+                        if (m.isSearchDone())
+                        {
+                            Console.WriteLine($"Vous avez déjà fouillé le {m.name}");
+                            break;
+                        }
+                        m.SearchDone();
+                        Monster.search(h);
+                        continue;
+
+                    case "Avancer":
+                        running = false;   // <-- casse la boucle
                         break;
-                    }
-                    fouiller = true;
-                    Searchable.search(h); //search
-                    break;
 
-                case "Avancer":
-                    break;
-
-                default:
-                    Console.WriteLine("Commande inconnue.");
-                    break;
-
+                    default:
+                        Console.WriteLine("Commande inconnue.");
+                        break;
+                }
             }
-            Console.ReadLine();
-
             index++;
 
         }
 
-        Console.WriteLine("Félicitation ! Vous avez vaincu tout les monstres du Dungeon vous pouvez maitnenant continuez votre chemin");
+        Console.WriteLine("Félicitation ! Vous avez vaincu tout les monstres du Dungeon vous pouvez maitnenant continuez votre chemin\nA bientôt !");
 
     }
 }
-

@@ -1,4 +1,4 @@
-public class Item
+public abstract class Item
 {
     protected int m_iEffectvalue;
 
@@ -7,13 +7,11 @@ public class Item
         m_iEffectvalue = value;
     }
 
-    public void setValue(int value)
+    public void setValue(int p_iValue)
     {
-        m_iEffectvalue = value;
+        m_iEffectvalue = p_iValue;
     }
 
-    public virtual void applyEffect(Hero hero)
-    {
-    }
+    public abstract void applyEffect(Hero hero); //ELle est en virtual, elle est bien utilisée va être overrind
 
 }

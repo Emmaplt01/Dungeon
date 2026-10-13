@@ -8,10 +8,10 @@ public class Monster : Character
     public static int s_iNbSorcererInstances = 0;
     public static int s_iNbBarbarianInstances = 0;
     public static int s_iNbTrollInstances = 0;
+    private bool m_bSearchDone = false;
 
     public string name;
 
-    private bool m_bSearchDone;
     private List<MonsterWeapon> LMonsterWeapons = new List<MonsterWeapon>()
     {
         new Dagger(),
@@ -22,7 +22,7 @@ public class Monster : Character
     };
     private MonsterWeapon m_MonsterWeapon;
 
-    public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, string weaponClassName) : base(IlifePoints)   // Appelle le constructeur de Character
+    public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, string weaponClassName, Item item) : base(IlifePoints)   // Appelle le constructeur de Character
     {
 
         m_sEffectiveWeaponType = IeffectiveWeaponType;
@@ -30,7 +30,7 @@ public class Monster : Character
 
         foreach (var weapon in LMonsterWeapons)
         {
-            if (weapon.GetType().Name == weaponClassName) //Les noms des armes c'est des type plus que des strings
+            if (weapon.GetType().Name == weaponClassName) //pour transformer la string en weapon (pr faire le rapprochement)
             {
                 m_MonsterWeapon = weapon;
                 return;
@@ -45,10 +45,8 @@ public class Monster : Character
 
     public override void attack(Character p_TargetCharacter)
     {
-        int Damages = m_MonsterWeapon.inflictDamage(p_TargetCharacter);
-        Console.WriteLine($"Vous vous faites attaqué par le {name} vous perdez {Damages} points");
-        Console.WriteLine($"Il vous reste {p_TargetCharacter.getNbLifePoints() - Damages} points");
-        p_TargetCharacter.receiveDamages(Damages);
+        m_MonsterWeapon.inflictDamage(p_TargetCharacter);
+
 
     }
 
@@ -61,8 +59,35 @@ public class Monster : Character
         return false;
     }
 
+    public void SearchDone()
+    {
+        m_bSearchDone = true;
+    }
     public bool isSearchDone()
     {
         return m_bSearchDone;
+    }
+
+    public static Item search(Hero hero)
+    {
+        Random rnd = new Random();
+        int valeur = rnd.Next(0, 30);
+
+        if (valeur <= 10)
+        {
+            Item potion = new StrengthPotion(valeur);
+            hero.Inventory.Add(potion);
+            Console.WriteLine($"Vous avez trouver une potion de force");
+            return potion;
+        }
+        if (valeur <= 20)
+        {
+            Item potion = new HealthPotion(valeur);
+            hero.Inventory.Add(potion);
+            Console.WriteLine($"Vous avez trouver une potion de vie");
+            return potion;
+        }
+        Console.WriteLine("Vous n'avez rien trouvé");
+        return null;
     }
 }

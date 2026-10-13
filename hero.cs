@@ -58,12 +58,11 @@ public class Hero : Character
     }
 
 
-    public override void attack(Character p_TargetCharacter)
+    public override void attack(Character target)
     {
-        int baseDamage = m_heroWeapons.inflictDamage(p_TargetCharacter);
-        int totalDamage = baseDamage * m_iStrength;
-        p_TargetCharacter.receiveDamages(totalDamage);
+        m_heroWeapons.inflictDamage(target);
     }
+
 
 
     public void discoverEnnemy(Monster p_Monster)
@@ -71,6 +70,10 @@ public class Hero : Character
         Console.WriteLine($"Attention un {p_Monster.name} est devant vous !");
     }
 
+    public void setStrength(int p_iStrength)
+    {
+        m_iStrength = p_iStrength;
+    }
     public int getStrength()
     {
         return m_iStrength;
@@ -88,14 +91,10 @@ public class Hero : Character
         m_iStrength += p_iValue;
     }
 
-    public void searchForPotion(Searchable p_Searchable)
-    {
-        Searchable.search(this); //appel la futur fonction pour faire un random pour savoir si il a trouver une potion
-        //Est-ce que il faudrait pas le rentrer quelque part le fait qu'on à trouver une potion
-    }
 
     public void showInventory()
     {
+        index = 0;
         if (Inventory.Count == 0)
         {
             Console.WriteLine("L'Inventaire est vide.");
@@ -107,7 +106,7 @@ public class Hero : Character
             Console.WriteLine($"[{index}] {item}");
             index++;
         }
-        Console.WriteLine("Voulez vous utiliser un potion ?");
+        Console.WriteLine("Voulez vous utiliser un potion oui/non?");
         string respons = Console.ReadLine();
         if (respons == "oui" || respons == "Oui")
         {
