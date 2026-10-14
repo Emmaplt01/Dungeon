@@ -22,13 +22,13 @@ class Dungeon
     {
         for (int i = 0; i < nbRooms; i++)
         {
-            item = new StrengthPotion(20);
+            item = new StrengthPotion();
             if (i % 4 == 0 && i % 3 == 0)
             {
                 barbarianCount++;
                 if (barbarianCount % 2 == 0)
                 {
-                    item = new HealthPotion(10);
+                    item = new HealthPotion();
                 }
                 m_RoomsArray[i] = new Room(new Barbarian("Barbarian", 50, "Sword", "Axe", item), itemsRooms(i));
             }
@@ -37,7 +37,7 @@ class Dungeon
                 thiefCount++;
                 if (thiefCount % 6 == 1)
                 {
-                    item = new HealthPotion(10);
+                    item = new HealthPotion();
                 }
 
                 m_RoomsArray[i] = new Room(new Thief("Thief", 30, "Arrow", "Dagger", item), itemsRooms(i));
@@ -47,7 +47,7 @@ class Dungeon
                 trollCount++;
                 if (trollCount % 4 != 3)
                 {
-                    item = new HealthPotion(10);
+                    item = new HealthPotion();
                 }
 
                 m_RoomsArray[i] = new Room(new Troll("Troll", 20, "Spear", "Club", item), itemsRooms(i));
@@ -57,7 +57,7 @@ class Dungeon
                 sorcererCount++;
                 if (sorcererCount % 3 == 0)
                 {
-                    item = new HealthPotion(10);
+                    item = new HealthPotion();
                 }
 
                 m_RoomsArray[i] = new Room(new Sorcerer("Sorcerer", 100, "WaterFlask", "Lightning", item), itemsRooms(i));
@@ -67,7 +67,7 @@ class Dungeon
                 zombieCount++;
                 if (zombieCount % 5 != 1)
                 {
-                    item = new HealthPotion(10);
+                    item = new HealthPotion();
                 }
 
                 m_RoomsArray[i] = new Room(new Zombie("Zombie", 10, "FireArrow", "Bite", item), itemsRooms(i));
@@ -80,15 +80,15 @@ class Dungeon
     {
         if (index % 7 == 0 && index % 4 == 0)
         {
-            return new HealthPotion(10); //normalement doit renvoyer les 2 en même temps
+            return new HealthPotion(); //normalement doit renvoyer les 2 en même temps
         }
         else if (index % 7 == 0)
         {
-            return new HealthPotion(10);
+            return new HealthPotion();
         }
         else if (index % 4 == 0)
         {
-            return new StrengthPotion(20);
+            return new StrengthPotion();
         }
         return null;
     }

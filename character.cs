@@ -3,12 +3,15 @@ public class Character
     protected int m_iLifePoints;
     public string name;
 
-    public Character(int pts)
+    protected String m_Weapon;
+
+    public Character(int pts, String weapon)
     {
         m_iLifePoints = pts;
+        m_Weapon = weapon;
     }
 
-    public virtual void attack(Character p_TargetCharacter)
+    public virtual void attack(Character p_TargetCharactern)
     {
 
     }

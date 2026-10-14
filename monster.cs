@@ -1,6 +1,6 @@
 using System.Reflection.PortableExecutable;
 
-public class Monster : Character
+public class Monster : Character, Searchable
 {
     public string m_sEffectiveWeaponType;
     public static int s_iNbZombieInstances = 0;
@@ -9,6 +9,8 @@ public class Monster : Character
     public static int s_iNbBarbarianInstances = 0;
     public static int s_iNbTrollInstances = 0;
     private bool m_bSearchDone = false;
+
+    protected Item m_Item;
 
     public string name;
 
@@ -22,15 +24,16 @@ public class Monster : Character
     };
     private MonsterWeapon m_MonsterWeapon;
 
-    public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, string weaponClassName, Item item) : base(IlifePoints)   // Appelle le constructeur de Character
+    public Monster(string Iname, int IlifePoints, string IeffectiveWeaponType, string WeaponUse, Item item) : base(IlifePoints, WeaponUse)   // Appelle le constructeur de Character
     {
 
         m_sEffectiveWeaponType = IeffectiveWeaponType;
         name = Iname;
+        m_Item = item;
 
         foreach (var weapon in LMonsterWeapons)
         {
-            if (weapon.GetType().Name == weaponClassName) //pour transformer la string en weapon (pr faire le rapprochement)
+            if (weapon.GetType().Name == WeaponUse) //pour transformer la string en weapon (pr faire le rapprochement)
             {
                 m_MonsterWeapon = weapon;
                 return;
@@ -45,9 +48,7 @@ public class Monster : Character
 
     public override void attack(Character p_TargetCharacter)
     {
-        m_MonsterWeapon.inflictDamage(p_TargetCharacter);
-
-
+        m_MonsterWeapon.inflictDamage(p_TargetCharacter, 1);
     }
 
     public bool isWeaponEfficient(Weapon p_Weapon)
@@ -68,26 +69,16 @@ public class Monster : Character
         return m_bSearchDone;
     }
 
-    public static Item search(Hero hero)
+    public Item search()
     {
-        Random rnd = new Random();
-        int valeur = rnd.Next(0, 30);
-
-        if (valeur <= 10)
+        if (m_Item != null)
         {
-            Item potion = new StrengthPotion(valeur);
-            hero.Inventory.Add(potion);
-            Console.WriteLine($"Vous avez trouver une potion de force");
-            return potion;
+            Console.WriteLine($"Félicitation vous avez trouvé une potion de {m_Item}");
         }
-        if (valeur <= 20)
+        else
         {
-            Item potion = new HealthPotion(valeur);
-            hero.Inventory.Add(potion);
-            Console.WriteLine($"Vous avez trouver une potion de vie");
-            return potion;
+            Console.WriteLine("Vous n'avez rien trouvé ici :(");
         }
-        Console.WriteLine("Vous n'avez rien trouvé");
-        return null;
+        return m_Item;
     }
 }

@@ -9,7 +9,7 @@ public class Weapon
         m_iAttackPoints = attackPoint;
     }
 
-    public virtual void inflictDamage(Character p_TargetCharacter)
+    public virtual void inflictDamage(Character p_TargetCharacter, int strength)
     {
     }
 

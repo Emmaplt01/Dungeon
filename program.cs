@@ -1,4 +1,6 @@
 ﻿
+using System.Security.Cryptography.X509Certificates;
+
 class Program
 {
     static void Main()
@@ -13,15 +15,15 @@ class Program
 
         Console.WriteLine("Quel est votre nom jeune aventurier ?");
         name = Console.ReadLine();
-        Hero h = new Hero(name, 200);
-        Dungeon d = new Dungeon(25);
+        Hero h = new Hero(name, 200, "Sword");
+        Dungeon d = new Dungeon(5);
         d.greetHeros(h);
         while (index <= 5)
         {
             Room r = d.getRoom(index);
             r.enterRoom(h);
             Monster m = r.getMonster();
-            Console.WriteLine($"Vous vous faites attaquer par un {m.name} !");
+            h.discoverEnnemy(m);
             while (m.getNbLifePoints() > 0)
             {
                 m.attack(h);
@@ -30,7 +32,7 @@ class Program
                     Console.WriteLine("Vous êtes malheureusement mort ... #RIP");
                     return;
                 }
-                Console.WriteLine($"Que voulez vous faire {h.name} ? Fouiller, Inventaire, Attack");
+                Console.WriteLine($"Que voulez vous faire {h.Name} : Fouiller, Attack");
                 action_choose = Console.ReadLine();
                 switch (action_choose)
                 {
@@ -41,31 +43,33 @@ class Program
                             break;
                         }
                         fouiller = true;
-                        Item result = r.search();
-                        if (result != null)
-                        {
-                            h.Inventory.Add(result);
-                        }
-                        break;
-
-                    case "Inventaire":
-                        h.showInventory();
+                        h.searchForPotion(r);
                         break;
 
                     case "Attack":
-                        Console.WriteLine("Quelles armes voulez-vous utiliser ?");
-                        HeroWeapon = h.chooseWeapon(Console.ReadLine());
-                        if (m.isWeaponEfficient(HeroWeapon) == true)
+                        Console.WriteLine($"Arme efficace : {m.getEffectiveWeaponType()}");
+                        Console.WriteLine("Quelles armes voulez-vous utiliser");
+                        HeroWeapon = h.weaponChoose(Console.ReadLine());
+                        if (HeroWeapon != null)
                         {
-                            h.attack(m);
-                            Console.WriteLine($"Vous avez attaqué le {m} il lui reste {m.getNbLifePoints()} points ");
-                            break;
+                            if (m.isWeaponEfficient(HeroWeapon) == true)
+                            {
+                                h.attack(m);
+                                Console.WriteLine($"Le {m} a été attaqué, il lui reste {m.getNbLifePoints()} points ");
+                                break;
+                            }
+                            else
+                            {
+                                Console.WriteLine($"Cette arme est inutile face au {m}");
+                                break;
+                            }
                         }
                         else
                         {
-                            Console.WriteLine($"Cette arme est inutile face au {m}");
-                            break;
+                            Console.WriteLine("Coups raté !!");
                         }
+                        break;
+
 
                     default:
                         Console.WriteLine("Commande inconnue.");
@@ -89,11 +93,11 @@ class Program
                             break;
                         }
                         m.SearchDone();
-                        Monster.search(h);
+                        h.searchForPotion(m);
                         continue;
 
                     case "Avancer":
-                        running = false;   // <-- casse la boucle
+                        running = false;   // casse la boucle
                         break;
 
                     default:

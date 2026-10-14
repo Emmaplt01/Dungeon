@@ -3,18 +3,18 @@ using System.ComponentModel.DataAnnotations;
 class HeroWeapons : Weapon
 {
     private int m_iAttackBonus;
-    private int nb;
+
     public HeroWeapons(string name, int attackPoints) : base(name, attackPoints)
     {
     }
 
-    public override void inflictDamage(Character target)
+    public override void inflictDamage(Character target, int strength)
     {
         Random rnd = new Random();
         int bonus = rnd.Next(0, 5); // bonus aléatoire
         setAttackBonus(bonus);
 
-        int totalDamage = m_iAttackPoints + m_iAttackBonus;
+        int totalDamage = m_iAttackPoints + m_iAttackBonus + strength;
         target.receiveDamages(totalDamage);
     }
 
