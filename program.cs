@@ -16,9 +16,9 @@ class Program
         Console.WriteLine("Quel est votre nom jeune aventurier ?");
         name = Console.ReadLine();
         Hero h = new Hero(name, 200, "Sword");
-        Dungeon d = new Dungeon(5);
+        Dungeon d = new Dungeon(30);
         d.greetHeros(h);
-        while (index <= 5)
+        while (index <= d.maxRoom)
         {
             Room r = d.getRoom(index);
             r.enterRoom(h);
@@ -48,26 +48,7 @@ class Program
 
                     case "Attack":
                         Console.WriteLine($"Arme efficace : {m.getEffectiveWeaponType()}");
-                        Console.WriteLine("Quelles armes voulez-vous utiliser");
-                        HeroWeapon = h.weaponChoose(Console.ReadLine());
-                        if (HeroWeapon != null)
-                        {
-                            if (m.isWeaponEfficient(HeroWeapon) == true)
-                            {
-                                h.attack(m);
-                                Console.WriteLine($"Le {m} a été attaqué, il lui reste {m.getNbLifePoints()} points ");
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine($"Cette arme est inutile face au {m}");
-                                break;
-                            }
-                        }
-                        else
-                        {
-                            Console.WriteLine("Coups raté !!");
-                        }
+                        h.attack(m);
                         break;
 
 
@@ -87,12 +68,12 @@ class Program
                 switch (action_choose)
                 {
                     case "Fouiller":
-                        if (m.isSearchDone())
+                        if (m.m_bSearchDone == true)
                         {
                             Console.WriteLine($"Vous avez déjà fouillé le {m.name}");
                             break;
                         }
-                        m.SearchDone();
+                        m.m_bSearchDone = true;
                         h.searchForPotion(m);
                         continue;
 
@@ -105,6 +86,7 @@ class Program
                         break;
                 }
             }
+            running = true;
             index++;
 
         }

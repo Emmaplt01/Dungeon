@@ -4,8 +4,9 @@ using System.Threading.Tasks.Dataflow;
 
 public class Hero : Character
 {
-    private int m_iStrength = 1;
-    private HeroWeapons m_heroWeapons;
+    private int m_iStrength = 0;
+    private HeroWeapons Weapons = null;
+    public HeroWeapons m_heroWeapon;
     private int index = 0;
 
     private int LifePoints;
@@ -23,13 +24,8 @@ public class Hero : Character
     {
         Name = name;
         LifePoints = lifePoints;
+        m_heroWeapon = Weapons;
 
-    }
-
-    public Weapon weaponChoose(string p_sWeaponClassName)
-    {
-        selectWeaponFromArsenal(p_sWeaponClassName);
-        return m_heroWeapons;
     }
     private void selectWeaponFromArsenal(string p_sWeaponClassName) //gestion des erreurs 
     {
@@ -39,34 +35,51 @@ public class Hero : Character
             {
                 if (weapon.GetType().Name == p_sWeaponClassName)
                 {
-                    m_heroWeapons = weapon;
+                    m_heroWeapon = weapon;
                     return;
                 }
             }
-            m_heroWeapons = null;
+            m_heroWeapon = null;
             return;
         }
     }
 
-
     public override void attack(Character target)
     {
-        m_heroWeapons.inflictDamage(target, m_iStrength);
+        Console.WriteLine("Quelles armes voulez-vous utiliser ?");
+        string weaponName = Console.ReadLine();
+
+        selectWeaponFromArsenal(weaponName);
+
+        Monster monster = (Monster)target;
+
+        if (monster.isWeaponEfficient(m_heroWeapon))
+        {
+            m_heroWeapon.inflictDamage(target, m_iStrength);
+            return;
+        }
+        else if (m_heroWeapon == null)
+        {
+            Console.WriteLine("Coup raté !");
+            return;
+        }
+        else
+        {
+            Console.WriteLine($"Cette arme est inutile face au {monster.name}");
+            return;
+        }
     }
 
     public void discoverEnnemy(Monster p_Monster)
     {
-        Console.WriteLine($"Un {p_Monster.name} vous attaque !");
+        Console.WriteLine($"Il y a un {p_Monster.name} dans la pièce!");
     }
 
     public void setStrength(int p_iStrength)
     {
         m_iStrength = p_iStrength;
     }
-    public int getStrength()
-    {
-        return m_iStrength;
-    }
+
     public void improveHealth(int p_iValue)
     {
         Console.WriteLine($"Vous avez gagner + {p_iValue} points de vie");
@@ -82,7 +95,22 @@ public class Hero : Character
 
     public void searchForPotion(Searchable p_Searchable)
     {
-        Item item = p_Searchable.search(); //fouille du monstre
+        if (p_Searchable is Room r)
+        {
+            if (r.roomNumber % 7 == 0 && r.roomNumber % 4 == 0)
+            {
+                Console.WriteLine($"Félicitation vous avez trouvé une HealtPotion et une StrengthPotion !");
+                HealthPotion healthPotion = new HealthPotion();
+                healthPotion.applyEffect(this);
+                StrengthPotion strengthPotion = new StrengthPotion();
+                strengthPotion.applyEffect(this);
+                return;
+            }
+
+        }
+
+        Item item = p_Searchable.search();
+
         if (item != null)
         {
             item.applyEffect(this);

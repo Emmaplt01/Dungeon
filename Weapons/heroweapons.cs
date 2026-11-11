@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-class HeroWeapons : Weapon
+public class HeroWeapons : Weapon
 {
     private int m_iAttackBonus;
 
@@ -8,17 +8,16 @@ class HeroWeapons : Weapon
     {
     }
 
-    public override void inflictDamage(Character target, int strength)
+    public override void inflictDamage(Character p_target, int strength)
     {
         Random rnd = new Random();
         int bonus = rnd.Next(0, 5); // bonus aléatoire
         setAttackBonus(bonus);
 
         int totalDamage = m_iAttackPoints + m_iAttackBonus + strength;
-        target.receiveDamages(totalDamage);
+        p_target.receiveDamages(totalDamage);
+        Console.WriteLine($"Vous attaquez le monstre , il lui reste {p_target.getNbLifePoints()} points");
     }
-
-
 
     private void setAttackBonus(int p_iBonus)
     {

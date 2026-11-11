@@ -26,8 +26,8 @@ public class MonsterWeapon : Weapon
         {
             p_TargetCharacter.receiveDamages(baseDamage);
         }
-        Console.WriteLine($"Vous perdez {baseDamage} points");
-        Console.WriteLine($"Il vous reste {p_TargetCharacter.getNbLifePoints() - baseDamage} points de vie");
+        Console.WriteLine($"Le monstre vous attaques, vous perdez {baseDamage} points");
+        Console.WriteLine($"Il vous reste {p_TargetCharacter.getNbLifePoints()} points de vie");
         return;
     }
 }

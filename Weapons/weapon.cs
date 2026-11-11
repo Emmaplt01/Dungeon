@@ -13,9 +13,6 @@ public class Weapon
     {
     }
 
-    public int getAttackPoint()
-    {
-        return m_iAttackPoints;
-    }
+
 
 }

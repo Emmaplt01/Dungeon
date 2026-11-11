@@ -8,7 +8,7 @@ public class Monster : Character, Searchable
     public static int s_iNbSorcererInstances = 0;
     public static int s_iNbBarbarianInstances = 0;
     public static int s_iNbTrollInstances = 0;
-    private bool m_bSearchDone = false;
+    public bool m_bSearchDone = false;
 
     protected Item m_Item;
 
@@ -30,6 +30,7 @@ public class Monster : Character, Searchable
         m_sEffectiveWeaponType = IeffectiveWeaponType;
         name = Iname;
         m_Item = item;
+        m_bSearchDone = false;
 
         foreach (var weapon in LMonsterWeapons)
         {
@@ -60,20 +61,11 @@ public class Monster : Character, Searchable
         return false;
     }
 
-    public void SearchDone()
-    {
-        m_bSearchDone = true;
-    }
-    public bool isSearchDone()
-    {
-        return m_bSearchDone;
-    }
-
     public Item search()
     {
         if (m_Item != null)
         {
-            Console.WriteLine($"Félicitation vous avez trouvé une potion de {m_Item}");
+            Console.WriteLine($"Félicitation vous avez trouvé une {m_Item}");
         }
         else
         {
