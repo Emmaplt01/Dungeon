@@ -16,13 +16,13 @@ public class HeroWeapons : Weapon
 
         int totalDamage = m_iAttackPoints + m_iAttackBonus + strength;
         p_target.receiveDamages(totalDamage);
-        Console.WriteLine($"Vous attaquez le monstre , il lui reste {p_target.getNbLifePoints()} points");
+        Console.WriteLine(Messages.HeroAttacksMonster(p_target.getNbLifePoints()));
     }
 
     private void setAttackBonus(int p_iBonus)
     {
         m_iAttackBonus = p_iBonus;
-        Console.WriteLine($"Bonus +{m_iAttackBonus}");
+        Console.WriteLine(Messages.AttackBonus(m_iAttackBonus));
         return;
     }
 }

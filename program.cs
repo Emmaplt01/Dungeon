@@ -12,11 +12,10 @@ class Program
         Weapon HeroWeapon;
         bool running = true;
 
-
-        Console.WriteLine("Quel est votre nom jeune aventurier ?");
+        Console.WriteLine(Messages.HeroName);
         name = Console.ReadLine();
         Hero h = new Hero(name, 200, "Sword");
-        Dungeon d = new Dungeon(30);
+        Dungeon d = new Dungeon(3);
         d.greetHeros(h);
         while (index <= d.maxRoom)
         {
@@ -29,40 +28,43 @@ class Program
                 m.attack(h);
                 if (h.getNbLifePoints() <= 0)
                 {
-                    Console.WriteLine("Vous êtes malheureusement mort ... #RIP");
+                    Console.WriteLine(Messages.HeroDead);
                     return;
                 }
-                Console.WriteLine($"Que voulez vous faire {h.Name} : Fouiller, Attack");
+                Console.WriteLine(Messages.HeroBattleChoice(h.Name));
                 action_choose = Console.ReadLine();
                 switch (action_choose)
                 {
                     case "Fouiller":
                         if (fouiller == true)
                         {
-                            Console.WriteLine("Vous avez déjà fouillé cette pièce");
+                            Console.WriteLine(Messages.RoomAlreadySearch);
+                            Console.ReadLine();
                             break;
                         }
                         fouiller = true;
                         h.searchForPotion(r);
+                        Console.ReadLine();
                         break;
 
                     case "Attack":
-                        Console.WriteLine($"Arme efficace : {m.getEffectiveWeaponType()}");
+                        Console.WriteLine(Messages.EffiveWeapon(m.getEffectiveWeaponType()));
                         h.attack(m);
+                        Console.ReadLine();
                         break;
 
 
                     default:
-                        Console.WriteLine("Commande inconnue.");
+                        Console.WriteLine(Messages.UnknownCommand);
                         break;
                 }
 
             }
             fouiller = false;
-            Console.WriteLine($"Super ! Vous avez teracé le {m} !");
+            Console.WriteLine(Messages.MonsterDefeate(m.name));
             while (running)
             {
-                Console.WriteLine("Que voulez vous faire: Fouiller ou Avancer ?");
+                Console.WriteLine(Messages.HeroChoice);
                 action_choose = Console.ReadLine();
 
                 switch (action_choose)
@@ -70,7 +72,7 @@ class Program
                     case "Fouiller":
                         if (m.m_bSearchDone == true)
                         {
-                            Console.WriteLine($"Vous avez déjà fouillé le {m.name}");
+                            Console.WriteLine(Messages.MonsterAlreadySearch(m.name));
                             break;
                         }
                         m.m_bSearchDone = true;
@@ -78,11 +80,11 @@ class Program
                         continue;
 
                     case "Avancer":
-                        running = false;   // casse la boucle
+                        running = false;
                         break;
 
                     default:
-                        Console.WriteLine("Commande inconnue.");
+                        Console.WriteLine(Messages.UnknownCommand);
                         break;
                 }
             }
@@ -91,7 +93,7 @@ class Program
 
         }
 
-        Console.WriteLine("Félicitation ! Vous avez vaincu tout les monstres du Dungeon vous pouvez maitnenant continuez votre chemin\nA bientôt !");
+        Console.WriteLine(Messages.Victory);
 
     }
 }

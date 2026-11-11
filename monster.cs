@@ -34,7 +34,7 @@ public class Monster : Character, Searchable
 
         foreach (var weapon in LMonsterWeapons)
         {
-            if (weapon.GetType().Name == WeaponUse) //pour transformer la string en weapon (pr faire le rapprochement)
+            if (weapon.GetType().Name == WeaponUse)
             {
                 m_MonsterWeapon = weapon;
                 return;
@@ -65,11 +65,11 @@ public class Monster : Character, Searchable
     {
         if (m_Item != null)
         {
-            Console.WriteLine($"Félicitation vous avez trouvé une {m_Item}");
+            Console.WriteLine(Messages.PotionFound(m_Item));
         }
         else
         {
-            Console.WriteLine("Vous n'avez rien trouvé ici :(");
+            Console.WriteLine(Messages.NotFound);
         }
         return m_Item;
     }

@@ -78,7 +78,7 @@ class Room : Searchable
 
     public void enterRoom(Hero hero)
     {
-        Console.WriteLine($"Vous entrez dans la salle N° {i}.");
+        Console.WriteLine(Messages.RoomEnter(i));
         p_Hero = hero;
         i++;
     }
@@ -87,12 +87,12 @@ class Room : Searchable
     {
         if (m_Items != null)
         {
-            Console.WriteLine($"Félicitation vous avez trouvé une potion de {m_Items}");
+            Console.WriteLine(Messages.PotionFound(m_Items));
             m_Items.applyEffect(p_Hero);
         }
         else
         {
-            Console.WriteLine("Vous n'avez rien trouvé ici :(");
+            Console.WriteLine(Messages.NotFound);
         }
         return m_Items;
     }

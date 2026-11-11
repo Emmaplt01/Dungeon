@@ -13,7 +13,7 @@ class Dungeon
     {
         if (p_iRoomIndex % 7 == 0 && p_iRoomIndex % 4 == 0)
         {
-            //Je donne les 2 dans Hero.searchForPotion pour ne pas avoir à faire de liste
+            //Je donne les 2 potion dans Hero.searchForPotion pour ne pas faire de liste
             new Room(p_iRoomIndex, new HealthPotion());
         }
         else if (p_iRoomIndex % 7 == 0)
@@ -29,7 +29,7 @@ class Dungeon
 
     public void greetHeros(Hero p_Hero)
     {
-        Console.WriteLine($"Bonjour bonjour, bienvue {p_Hero.Name}");
+        Console.WriteLine(Messages.Greet(p_Hero.Name));
         Console.ReadLine();
     }
 }

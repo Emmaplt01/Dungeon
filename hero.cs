@@ -20,14 +20,14 @@ public class Hero : Character
         new Spear(),
         new FireArrow(),
     };
-    public Hero(string name, int lifePoints, string weapon) : base(lifePoints, weapon)   // Appelle le constructeur de Character
+    public Hero(string name, int lifePoints, string weapon) : base(lifePoints, weapon)
     {
         Name = name;
         LifePoints = lifePoints;
         m_heroWeapon = Weapons;
 
     }
-    private void selectWeaponFromArsenal(string p_sWeaponClassName) //gestion des erreurs 
+    private void selectWeaponFromArsenal(string p_sWeaponClassName)
     {
         while (true)
         {
@@ -46,7 +46,7 @@ public class Hero : Character
 
     public override void attack(Character target)
     {
-        Console.WriteLine("Quelles armes voulez-vous utiliser ?");
+        Console.WriteLine(Messages.WeaponChoose);
         string weaponName = Console.ReadLine();
 
         selectWeaponFromArsenal(weaponName);
@@ -60,19 +60,19 @@ public class Hero : Character
         }
         else if (m_heroWeapon == null)
         {
-            Console.WriteLine("Coup raté !");
+            Console.WriteLine(Messages.MissedAttack);
             return;
         }
         else
         {
-            Console.WriteLine($"Cette arme est inutile face au {monster.name}");
+            Console.WriteLine(Messages.NotEffectiveWeapon(monster.name));
             return;
         }
     }
 
     public void discoverEnnemy(Monster p_Monster)
     {
-        Console.WriteLine($"Il y a un {p_Monster.name} dans la pièce!");
+        Console.WriteLine(Messages.EnemyInRoom(p_Monster.name));
     }
 
     public void setStrength(int p_iStrength)
@@ -82,14 +82,13 @@ public class Hero : Character
 
     public void improveHealth(int p_iValue)
     {
-        Console.WriteLine($"Vous avez gagner + {p_iValue} points de vie");
+        Console.WriteLine(Messages.HealthGained(p_iValue));
         LifePoints += p_iValue;
-        Console.WriteLine($"Il vous reste {LifePoints} points de vie");
     }
 
     public void improveStrength(int p_iValue)
     {
-        Console.WriteLine($"Vous avez gagner en force +{p_iValue} ");
+        Console.WriteLine(Messages.StrengthGained(p_iValue));
         m_iStrength += p_iValue;
     }
 
@@ -99,7 +98,7 @@ public class Hero : Character
         {
             if (r.roomNumber % 7 == 0 && r.roomNumber % 4 == 0)
             {
-                Console.WriteLine($"Félicitation vous avez trouvé une HealtPotion et une StrengthPotion !");
+                Console.WriteLine(Messages.BothPotionsFound);
                 HealthPotion healthPotion = new HealthPotion();
                 healthPotion.applyEffect(this);
                 StrengthPotion strengthPotion = new StrengthPotion();

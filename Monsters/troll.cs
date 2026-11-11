@@ -9,7 +9,7 @@ class Troll : Monster
         s_iNbTrollInstances++;
     }
 
-    public void attack(Character TargetCharacter) //plus utiliser passe pas par là
+    public void attack(Character TargetCharacter)
     {
         TargetCharacter.getNbLifePoints();
         TargetCharacter.receiveDamages(10);

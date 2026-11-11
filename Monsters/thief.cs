@@ -8,7 +8,7 @@ class Thief : Monster
         s_iNbThiefInstances++;
     }
 
-    public void attack(Character TargetCharacter) //plus utilisé passe pas par là
+    public void attack(Character TargetCharacter)
     {
         TargetCharacter.getNbLifePoints();
         TargetCharacter.receiveDamages(10);
